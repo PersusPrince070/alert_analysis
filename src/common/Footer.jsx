@@ -23,7 +23,7 @@ const Footer = () => {
                 }
             ])
             try {
-                const res = await fetch('http://localhost:8000/chat', {
+                const res = await fetch('http://3.144.118.240:8000/chat', {
                     method: "POST",
                     body: JSON.stringify(data)
                 })
