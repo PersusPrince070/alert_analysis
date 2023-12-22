@@ -82,6 +82,26 @@
   margin-left: 10px;
 }
 
+.message-container:hover .user-message-action-button {
+  visibility: visible;
+}
+
+.message-container:hover .bot-message-action-button {
+  visibility: visible;
+}
+
+.message-container {
+  position: relative;
+}
+
+.bot-message-action-button {
+  visibility: hidden;
+  position: absolute;
+  right: 5px;
+  top: 15px;
+  transform: translateY(-50%);
+}
+
 .footer-container {
   flex-shrink: 0;
   max-height: 400px;

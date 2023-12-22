@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -48,5 +48,5 @@ async def chat(reqeust: Request):
         reply = chat_completion.choices[0].message.content
 
     print(f"ChatGPT: { reply }")
-        
+    
     return { "message": reply }
