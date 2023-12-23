@@ -103,6 +103,7 @@ const Footer = () => {
                 setQuery((prevQuery) => prevQuery + text);
             };
             reader.readAsText(file);
+            
         } else {
             alert('Only text files are allowed.');
             event.target.value = '';
