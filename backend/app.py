@@ -27,7 +27,7 @@ async def chat(reqeust: Request):
     query = body['query']
     messages = [{
         "role": "user",
-        "content": "You need to explain what the sentence below means. Explanations should be concise and easy for the general public to understand."
+        "content": "Be sure to explain what Alert means in every sentence below. All explanatory statements must be concise and easy for the general public to understand, and must explain causes and reasons in great detail and at length and in rich detail."
     }]
     
     if query:
