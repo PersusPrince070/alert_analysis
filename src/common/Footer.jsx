@@ -98,9 +98,9 @@ const Footer = () => {
         const file = event.target.files[0];
         if (file && isValidFileType(file)) {
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = (e) => {    
                 const text = e.target.result;
-                setQuery(text);
+                setQuery((prevQuery) => prevQuery + text);
             };
             reader.readAsText(file);
         } else {
