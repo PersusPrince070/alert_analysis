@@ -3,6 +3,7 @@ import { ProductContext } from "../pages/Landing";
 import { TextField, Button, IconButton, InputAdornment } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ArticleIcon from '@mui/icons-material/Article';
 import { styled } from '@mui/material/styles';
 
 const VisuallyHiddenInput = styled('input')({
@@ -88,6 +89,59 @@ const Footer = () => {
         }
     }
 
+    const handleReportGen = async () => {
+        if (query.trim() !== "") {
+            setMessage(message => [
+                ...message,
+                {
+                    user: "User",
+                    text: query
+                },
+                {
+                    user: "Bot",
+                    text: "Loading..."
+                }
+            ])
+            try {
+                const res = await fetch('http://localhost:8000/report', {
+                    method: "POST",
+                    body: JSON.stringify(data)
+                })
+        
+                if (res.ok) {
+                    setQuery("")
+                    const response = await res.json()
+                    setMessage(message => [
+                        ...message.filter(
+                            (item) => item.text !== "Loading..."
+                        ),
+                        {
+                            user: "BOT",
+                            text: response.message
+                        }
+                    ])
+                }
+            }
+            catch(error) {
+                setQuery("")
+                setMessage(message => [
+                    ...message.filter(
+                        (item) => item.text !== "Loading..."
+                    ),
+                    {
+                        user: "BOT",
+                        text: error.message + ". Please ask again in more detail."
+                    }
+                ])
+            }
+            setMessage(
+                (message) => message.filter(
+                    (item) => item.text !== "LOADING"
+                )
+            )
+        }
+    }
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             clickButtonRef.current.click();
@@ -103,7 +157,7 @@ const Footer = () => {
                 setQuery((prevQuery) => prevQuery + text);
             };
             reader.readAsText(file);
-            
+
         } else {
             alert('Only text files are allowed.');
             event.target.value = '';
@@ -146,6 +200,14 @@ const Footer = () => {
                 ref={ clickButtonRef }
             >
                 ASK
+            </Button>
+            <Button
+                variant="contained"
+                size="large"
+                endIcon={ <ArticleIcon /> }
+                onClick={ handleReportGen }
+            >
+                Report
             </Button>
         </div>
     )

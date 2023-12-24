@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import { SyncLoader } from "react-spinners";
 
 const BotMessageBox = ({ message }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -22,7 +23,9 @@ const BotMessageBox = ({ message }) => {
              onMouseLeave={() => setIsHovered(false)}>
             <div className="bot-message">
                 <div className="bot-message-wrapper">
-                    { message }
+                    {
+                        message === "Loading..." ? <p><SyncLoader color="#36d7b7" /></p> : message.split("\n").map((item, idx) => <p key={idx}>{item}</p>)
+                    }
                 </div>
             </div>
             { isHovered && 
